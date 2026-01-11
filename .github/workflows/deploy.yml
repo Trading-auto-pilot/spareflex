@@ -8,6 +8,8 @@ on:
 env:
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  GCP_HOST: ${{ secrets.GCP_HOST }}
+  GCP_USER: ${{ secrets.GCP_USER }}
 
 jobs:
   build-and-push:
@@ -37,3 +39,16 @@ jobs:
           --push \
           --tag "$DOCKERHUB_USERNAME/$IMAGE_NAME:latest" \
           .
+
+    - name: Setup SSH key
+      uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Copy docker-compose file to server
+      run: |
+        scp -o StrictHostKeyChecking=no docker-compose.sparelinx.yml $GCP_USER@$GCP_HOST:/home/$GCP_USER/deploy/docker-compose.sparelinx.yml
+
+    - name: Deploy on server with Docker Compose
+      run: |
+        ssh -o StrictHostKeyChecking=no $GCP_USER@$GCP_HOST "cd /home/$GCP_USER/deploy && docker compose -f docker-compose.sparelinx.yml pull && docker compose -f docker-compose.sparelinx.yml up -d"
