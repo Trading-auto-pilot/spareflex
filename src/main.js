@@ -171,6 +171,7 @@ const closeBtn = document.querySelector('#closeBtn')
 const preventiveToggle = document.querySelector('#preventiveToggle')
 const preventiveSubmenu = document.querySelector('#preventiveSubmenu')
 const submenuLinks = document.querySelectorAll('.submenu-link')
+const menuLinks = document.querySelectorAll('.menu a')
 const maintenanceCard = document.querySelector('#maintenanceCard')
 const maintenanceDropdown = document.querySelector('#maintenanceDropdown')
 const maintenanceDropdownBtn = document.querySelector('.maintenance-dropdown-btn')
@@ -308,6 +309,18 @@ preventiveToggle.addEventListener('click', (event) => {
 
 submenuLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
+    event.preventDefault()
+    maintenanceCard.classList.remove('hidden')
+  })
+})
+
+menuLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const isPreventive =
+      link.getAttribute('href') === '#preventive' || link.id === 'preventiveToggle'
+    if (isPreventive) {
+      return
+    }
     event.preventDefault()
     maintenanceCard.classList.remove('hidden')
   })

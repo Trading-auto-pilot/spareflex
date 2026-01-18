@@ -1,10 +1,10 @@
 
 services:
   sparelinx:
-    image: expovin/demo.sparelinx:latest
+    image: expovin/demo.sparelinx:b0ff43c
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.sparelinx.rule=Host(`demo.expovin.it`)"
+      - "traefik.http.routers.sparelinx.rule=Host(`demo.expovin.it`,`demo.sparelinx.com`)"
       - "traefik.http.routers.sparelinx.entrypoints=websecure"
       - "traefik.http.routers.sparelinx.tls.certresolver=le"
       - "traefik.http.services.sparelinx.loadbalancer.server.port=8888"
