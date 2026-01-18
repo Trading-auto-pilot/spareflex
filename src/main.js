@@ -4,7 +4,7 @@ const logoUrl =
   'https://images.squarespace-cdn.com/content/v1/692d98fb3d6ab80911f86b99/ee31bcbf-2285-4f0e-82a4-9df952d5cf36/SpareLinx+Logo3.png?format=1500w'
 
 document.querySelector('#app').innerHTML = `
-  <a class="top-right-link" href="${logoUrl}" target="_blank" rel="noreferrer">
+  <a class="top-right-link" href="https://www.sparelinx.com/">
     <img src="${logoUrl}" alt="SpareLinx logo" />
   </a>
   <main class="page-content">
